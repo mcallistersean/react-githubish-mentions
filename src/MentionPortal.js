@@ -1,7 +1,8 @@
 import React from "react";
+import ReactDom from "react-dom";
 import PropTypes from "prop-types";
 
-class MentionPortal extends React.Component {
+class SimpleMentionPortal extends React.Component {
   static propTypes = {
     close: PropTypes.func.isRequired,
     closeOnClick: PropTypes.bool.isRequired,
@@ -17,7 +18,7 @@ class MentionPortal extends React.Component {
     this.props.closeOnClick && this.props.close();
   };
 
-  onDocumentEsc = e => {
+  onDocumentEsc = event => {
     if (this.props.closeOnEsc && event.keyCode === 27) {
       this.props.close();
     }
@@ -42,4 +43,24 @@ class MentionPortal extends React.Component {
   }
 }
 
-export default MentionPortal;
+class ReactMentionPortal extends React.Component {
+  componentWillMount() {
+    this.portal = document.createElement("div");
+    document.body.appendChild(this.portal);
+  }
+  componentWillUnmount() {
+    document.body.removeChild(this.portal);
+  }
+  render() {
+    return ReactDOM.createPortal(
+      <SimpleMentionPortal {...this.props}>
+        {this.props.children}
+      </SimpleMentionPortal>,
+      this.portal
+    );
+  }
+}
+
+export default SimpleMentionPortal;
+
+export { ReactMentionPortal };
