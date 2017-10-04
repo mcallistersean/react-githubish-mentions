@@ -173,7 +173,7 @@ class MentionWrapper extends Component {
   };
 
   render() {
-    const { children, component, getRef, ...inputProps } = this.props;
+    const { children, component, getRef, position, ...inputProps } = this.props;
     const { active, child, left, top, options } = this.state;
     const { item, className, style } = child;
     return (
