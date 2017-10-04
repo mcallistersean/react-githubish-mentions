@@ -36,10 +36,16 @@ textarea {
 
 .mentionwrapper {
   background-color: whitesmoke;
+  z-index: 1000;
 }
 
 .menuitem {
   padding: 0.3rem;
+  cursor: pointer;
+}
+
+.menuitem:hover {
+  font-weight: bold;
 }
 
 .menuitem .match {
@@ -48,4 +54,5 @@ textarea {
 
 .menuitem.active {
   background-color: rgba(0, 0, 255, 0.11);
+  font-weight: bold;
 }
