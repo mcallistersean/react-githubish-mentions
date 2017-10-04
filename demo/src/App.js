@@ -28,7 +28,14 @@ class App extends Component {
               <Highlighted placeholder="@-mentioning" position="start" />
             </div>
           </div>
-          <hr />
+
+          <div>
+            <h2>Positioning Test</h2>
+            <div style={{ position: "relative" }}>
+              <h4>My parent is relatively positioned</h4>
+              <Simple placeholder="position test..." />
+            </div>
+          </div>
 
           <p>
             <b>
