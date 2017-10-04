@@ -3,6 +3,8 @@ import "./App.css";
 
 import profiles from "./examples/data";
 import { Simple, Highlighted } from "./examples";
+import { Portals } from "react-githubish-mentions";
+console.log("Portal", Portals);
 
 class App extends Component {
   render() {
@@ -31,9 +33,12 @@ class App extends Component {
 
           <div>
             <h2>Positioning Test</h2>
-            <div style={{ position: "relative" }}>
+            <div style={{ position: "relative", border: "1px solid red" }}>
               <h4>My parent is relatively positioned</h4>
-              <Simple placeholder="position test..." />
+              <Simple
+                placeholder="position test..."
+                portal={Portals.ReactMentionPortal}
+              />
             </div>
           </div>
 

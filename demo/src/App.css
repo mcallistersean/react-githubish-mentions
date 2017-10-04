@@ -1,5 +1,6 @@
 .App {
-  min-height: 150vh;
+  height: 150vh;
+  overflow: hidden;
 }
 
 .App-header {
