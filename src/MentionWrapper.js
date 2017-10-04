@@ -44,7 +44,7 @@ class MentionWrapper extends Component {
     const tokens = textBeforeCaret.split(/\s/);
     const lastToken = tokens[tokens.length - 1];
 
-    // check if the text befor the caret ends with the last word
+    // check if the text before the caret ends with the last word
     const triggerIdx = textBeforeCaret.endsWith(lastToken)
       ? textBeforeCaret.length - lastToken.length
       : -1;
@@ -64,6 +64,13 @@ class MentionWrapper extends Component {
       const { replace, resolve } = child;
       this.replace = replace || defaultReplace;
       this.makeOptions(query, resolve);
+      console.warn(
+        window.scrollY,
+        coords.top,
+        top,
+        coords.height,
+        this.ref.scrollTop
+      );
       // that stupid bug where the caret moves to the end happens unless we do it next tick
       setTimeout(() => {
         this.setState({
@@ -173,9 +180,17 @@ class MentionWrapper extends Component {
   };
 
   render() {
-    const { children, component, getRef, position, ...inputProps } = this.props;
+    const {
+      children,
+      component,
+      getRef,
+      position,
+      portal,
+      ...inputProps
+    } = this.props;
     const { active, child, left, top, options } = this.state;
     const { item, className, style } = child;
+    const Portal = this.props.portal;
     return (
       <div>
         <textarea
@@ -186,7 +201,7 @@ class MentionWrapper extends Component {
           onKeyDown={this.handleKeyDown}
         />
         {top !== undefined && (
-          <MentionPortal close={this.closeMenu}>
+          <Portal close={this.closeMenu}>
             <MentionMenu
               active={active}
               className={className}
@@ -198,7 +213,7 @@ class MentionWrapper extends Component {
               style={style}
               top={top}
             />
-          </MentionPortal>
+          </Portal>
         )}
       </div>
     );
@@ -206,11 +221,13 @@ class MentionWrapper extends Component {
 }
 
 MentionWrapper.propTypes = {
-  position: PropTypes.oneOf(["start", "caret"])
+  position: PropTypes.oneOf(["start", "caret"]),
+  portal: PropTypes.func.isRequired
 };
 
 MentionWrapper.defaultProps = {
-  position: "caret"
+  position: "caret",
+  portal: MentionPortal
 };
 
 export default MentionWrapper;
